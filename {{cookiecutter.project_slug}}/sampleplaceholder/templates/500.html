@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Server error{% endblock %}
+
+{% block content %}
+<section class="u-h-100vh u-flex-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="text-primary u-fs-60 u-fs-md-150 ">500</h1>
+        <h2 class="mb-4">
+          Sorry! Something Went Wrong
+          <i class="fa fa-frown-o text-yellow" aria-hidden="true"></i>
+        </h2>
+        <p>
+          Sorry, something went wrong on our system. Don't panic, we are fixing it! Please try again later.
+        </p>
+        <a href="{{ url_for('public.home') }}" class="btn btn-rounded btn-primary mt-5">Return to Home</a>
+      </div>
+    </div>
+    <!-- END row-->
+  </div>
+  <!-- END container-->
+</section>
+<!-- END intro-hero-->
+{% endblock %}

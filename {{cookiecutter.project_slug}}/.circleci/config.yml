@@ -1,0 +1,53 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.5
+      - image: circleci/postgres:10.1-alpine-ram
+
+    working_directory: ~/repo
+    environment:
+      DATABASE_URL: postgresql://root@localhost/circle_test
+  
+    steps:
+      - run:
+          name: install psql
+          command: |
+            sudo apt-get install postgresql-client
+
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      
+      - run:
+          name: Create PostgreSQL extensions
+          command: |
+            psql -h localhost -U root circle_test -c "CREATE EXTENSION IF NOT EXISTS pgcrypto"
+
+      - checkout
+
+      - restore_cache:
+          keys:
+            - cache-{{ checksum "Pipfile.lock" }}
+            - cache-
+      - run:
+          name: Install dependencies
+          command: pipenv sync --dev
+      - save_cache:
+          key: cache-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ~/.local
+            - ~/.cache
+
+      - run:
+          name: run tests
+          command: |
+            pipenv run python -m pytest --cov=sampleplaceholder --cov-report html -svvv ./tests
+
+      - store_artifacts:
+          path: htmlcov
+          destination: htmlcov

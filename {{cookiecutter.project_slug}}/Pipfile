@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Flask = "*"
+Flask-SQLAlchemy = "*"
+Flask-Migrate = "*"
+Flask-DebugToolbar = "*"
+ipython = "*"
+click = "*"
+bugsnag = "*"
+flask-wtf = "*"
+flask-security = {git = "https://github.com/mattupstate/flask-security.git", editable = true, ref = "develop"}
+bcrypt = "*"
+newrelic = "*"
+gunicorn = "*"
+"psycopg2-binary" = "*"
+flask-shell-ipython = "*"
+
+[dev-packages]
+ipdb = "*"
+Flask-WebTest = "*"
+pytest = "*"
+WebTest = "*"
+black = "==18.4a4"
+pylint = "*"
+pytest-cov = "*"
+
+[requires]
+python_version = "3.6"

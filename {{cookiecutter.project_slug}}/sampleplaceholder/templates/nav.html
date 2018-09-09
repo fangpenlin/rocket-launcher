@@ -1,0 +1,30 @@
+{% macro nav_item(content, endpoint) -%}
+  <li class="nav-item{{ ' active' if request.endpoint == endpoint else '' }}">
+    <a class="nav-link" href="{{ url_for(endpoint) }}">
+      {{ content }}
+      {% if request.endpoint == endpoint %}
+        <span class="sr-only">(current)</span>
+      {% endif %}
+    </a>
+  </li>
+{%- endmacro %}
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="{{ url_for('public.home') }}">Sampleplaceholder</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      {{ nav_item('Home', 'public.home') }}
+      {% if current_user.is_authenticated %}
+        {{ nav_item('Logout', 'security.logout') }}
+      {% else %}
+        {{ nav_item('Login', 'security.login') }}
+        {{ nav_item('Register', 'security.register') }}
+      {% endif %}
+    </ul>
+  </div>
+</nav>

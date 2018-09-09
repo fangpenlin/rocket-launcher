@@ -1,0 +1,32 @@
+{
+    "name": "Sampleplaceholder",
+    "success_url": "/",
+    "env": {
+      "SECRET_KEY": {
+        "description": "A secret key for verifying the integrity of signed cookies.",
+        "generator": "secret"
+      },
+      "FLASK_APP": {
+        "description": "Specify the Flask app entry point file to run.",
+        "value": "autoapp.py"
+      },
+      "MAIL_DEFAULT_SENDER": {
+        "description": "Default mail sender address.",
+        "value": "noreply@sampleplaceholder.com"
+      }
+    },
+    "addons": [
+      {
+        "plan": "heroku-postgresql"
+      },
+      {
+        "plan": "sendgrid"
+      },
+      {
+        "plan": "bugsnag:tauron2"
+      },
+      {
+        "plan": "newrelic"
+      }
+    ]
+  }
