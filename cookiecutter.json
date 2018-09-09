@@ -1,4 +1,5 @@
 {
+    "project_slug": "sampleapp",
     "project_name": "{{cookiecutter.project_slug | capitalize}}",
     "domain_name": "{{cookiecutter.project_slug}}.com",
     "_copy_without_render": [
