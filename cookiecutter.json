@@ -1,1 +1,3 @@
-{}
+{
+    "domain_name": "{{cookiecutter.project_slug}}.com"
+}
