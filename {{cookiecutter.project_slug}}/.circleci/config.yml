@@ -46,7 +46,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            pipenv run python -m pytest --cov=sampleplaceholder --cov-report html -svvv ./tests
+            pipenv run python -m pytest --cov={{cookiecutter.project_slug}} --cov-report html -svvv ./tests
 
       - store_artifacts:
           path: htmlcov

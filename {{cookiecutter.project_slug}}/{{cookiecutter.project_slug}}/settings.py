@@ -15,7 +15,7 @@ class Config(object):
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", "postgresql://localhost/sampleplaceholder"
+        "DATABASE_URL", "postgresql://localhost/{{cookiecutter.project_slug}}"
     )
 
     # Flask-Mail configs
@@ -53,7 +53,7 @@ class TestConfig(Config):
     TESTING = True
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", "postgresql://localhost/sampleplaceholder_test"
+        "DATABASE_URL", "postgresql://localhost/{{cookiecutter.project_slug}}_test"
     )
 
     BCRYPT_LOG_ROUNDS = 4  # For faster tests; needs at least 4 to avoid "ValueError: Invalid rounds"

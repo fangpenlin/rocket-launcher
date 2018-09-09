@@ -12,7 +12,7 @@
       },
       "MAIL_DEFAULT_SENDER": {
         "description": "Default mail sender address.",
-        "value": "noreply@sampleplaceholder.com"
+        "value": "noreply@{{cookiecutter.domain_name}}.com"
       }
     },
     "addons": [

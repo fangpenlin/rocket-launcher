@@ -1,8 +1,8 @@
 import pytest
 from flask_webtest import TestApp
-from sampleplaceholder.app import create_app
-from sampleplaceholder.extensions import db as _db
-from sampleplaceholder.settings import TestConfig
+from {{cookiecutter.project_slug}}.app import create_app
+from {{cookiecutter.project_slug}}.extensions import db as _db
+from {{cookiecutter.project_slug}}.settings import TestConfig
 
 
 @pytest.fixture
