@@ -4,6 +4,18 @@ from {{cookiecutter.project_slug}}.app import create_app
 from {{cookiecutter.project_slug}}.extensions import db as _db
 from {{cookiecutter.project_slug}}.settings import TestConfig
 
+def pytest_sessionstart(session):
+    _app = create_app(TestConfig)
+    ctx = _app.test_request_context()
+    ctx.push()
+
+    with _app.app_context():
+        _db.engine.execute('''
+        CREATE EXTENSION IF NOT EXISTS pgcrypto
+        ''')
+
+    ctx.pop()
+
 
 @pytest.fixture
 def app():

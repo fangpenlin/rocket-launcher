@@ -27,6 +27,7 @@ WebTest = "*"
 black = "==18.4a4"
 pylint = "*"
 pytest-cov = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.6"

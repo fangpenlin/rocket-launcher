@@ -17,7 +17,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", "postgresql://localhost/{{cookiecutter.project_slug}}"
     )
-    SITE_NAME = {{cookiecutter.project_name}}
+    SITE_NAME = '{{cookiecutter.project_name}}'
 
     # Flask-Mail configs
     MAIL_SERVER = os.environ.get("MAIL_SERVER", "smtp.sendgrid.net")
