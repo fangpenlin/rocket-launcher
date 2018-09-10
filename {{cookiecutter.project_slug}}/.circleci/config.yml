@@ -33,7 +33,6 @@ jobs:
       - restore_cache:
           keys:
             - cache-{{ '{{' }} checksum "Pipfile.lock" {{ '}}' }}
-            - cache-
       - run:
           name: Install dependencies
           command: pipenv sync --dev
