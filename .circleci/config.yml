@@ -37,7 +37,10 @@ jobs:
             git config --global user.email "hello@fangpenlin.com"
             git config --global user.name "Fang-Pen Lin"
             pipenv run cookiecutter -f --no-input . -o output
+            eval `ssh-agent`
             ssh-agent $(ssh-add ~/.ssh/id_rsa_e3f0236ce84cf5bf7a83a79b53b22e83; git clone --no-checkout git@github.com:fangpenlin/rocket-launcher-sampleapp.git)
             cp -r rocket-launcher-sampleapp/.git output/sampleapp
-            cd output/sampleapp && git commit -a -m "Generated from rocket-launcher $CIRCLE_SHA1"
-            cd output/sampleapp && ssh-agent $(ssh-add ~/.ssh/id_rsa_e3f0236ce84cf5bf7a83a79b53b22e83; git push origin master)
+            cd output/sampleapp
+            git add --all
+            git commit -a -m "Generated from rocket-launcher $CIRCLE_SHA1"
+            ssh-agent $(ssh-add ~/.ssh/id_rsa_e3f0236ce84cf5bf7a83a79b53b22e83; git push origin master)
