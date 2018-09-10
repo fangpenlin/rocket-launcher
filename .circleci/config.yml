@@ -36,7 +36,10 @@ jobs:
           paths:
             - ~/.local
             - ~/.cache
+
   deploy:
+    docker:
+      - image: circleci/python:3.7.0
     working_directory: ~/repo
     steps:
       - run:
