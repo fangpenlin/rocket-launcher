@@ -34,6 +34,5 @@ jobs:
       - run:
           name: generate project
           command: |
-            eval `ssh-agent`
-            git clone git@github.com:fangpenlin/rocket-launcher-sampleapp.git
+            ssh-agent $(ssh-add ~/.ssh/id_rsa_e3f0236ce84cf5bf7a83a79b53b22e83; git clone git@github.com:fangpenlin/rocket-launcher-sampleapp.git)
             pipenv run cookiecutter -f --no-input . -o rocket-launcher-sampleapp
