@@ -7,8 +7,6 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.7.0
-
-    working_directory: ~/repo
   
     steps:
       - checkout
@@ -33,14 +31,21 @@ jobs:
             - ~/.local
             - ~/.cache
 
+      - persist_to_workspace:
+          root: .
+          paths:
+            - output
+
   deploy:
     docker:
       - image: circleci/python:3.7.0
-    working_directory: ~/repo
     steps:
       - add_ssh_keys:
           fingerprints:
             - "e3:f0:23:6c:e8:4c:f5:bf:7a:83:a7:9b:53:b2:2e:83"
+
+      - attach_workspace:
+        at: .
 
       - run:
           name: Add known host
