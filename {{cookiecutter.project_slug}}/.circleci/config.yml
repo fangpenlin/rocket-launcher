@@ -50,6 +50,9 @@ jobs:
           command: |
             pipenv run python -m pytest --cov={{cookiecutter.project_slug}} --cov-report html -svvv ./tests
 
+      - store_test_results:
+          path: htmlcov
+
       - store_artifacts:
           path: htmlcov
           destination: htmlcov
