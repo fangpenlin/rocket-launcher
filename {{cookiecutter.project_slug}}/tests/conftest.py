@@ -1,8 +1,10 @@
 import pytest
 from flask_webtest import TestApp
+
 from {{cookiecutter.project_slug}}.app import create_app
 from {{cookiecutter.project_slug}}.extensions import db as _db
 from {{cookiecutter.project_slug}}.settings import TestConfig
+
 
 def pytest_sessionstart(session):
     _app = create_app(TestConfig)
