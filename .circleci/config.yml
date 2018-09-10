@@ -11,6 +11,10 @@ jobs:
     working_directory: ~/repo
   
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "e3:f0:23:6c:e8:4c:f5:bf:7a:83:a7:9b:53:b2:2e:83"
+
       - checkout
 
       - restore_cache:
