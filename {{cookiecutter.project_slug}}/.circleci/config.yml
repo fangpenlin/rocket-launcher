@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.7.0
+      - image: circleci/python:3.6.5
       - image: circleci/postgres:10.1-alpine-ram
 
     working_directory: ~/repo
@@ -32,15 +32,15 @@ jobs:
 
       - restore_cache:
           keys:
-            - v2-dependencies-{{ '{{' }} checksum "Pipfile.lock" {{ '}}' }}
+            - v3-dependencies-{{ '{{' }} checksum "Pipfile.lock" {{ '}}' }}
             # fallback to using the latest cache if no exact match is found
-            - v2-dependencies-
+            - v3-dependencies-
 
       - run:
           name: Install dependencies
           command: pipenv sync --dev
       - save_cache:
-          key: v2-dependencies-{{ '{{' }} checksum "Pipfile.lock" {{ '}}' }}
+          key: v3-dependencies-{{ '{{' }} checksum "Pipfile.lock" {{ '}}' }}
           paths:
             - ~/.local
             - ~/.cache

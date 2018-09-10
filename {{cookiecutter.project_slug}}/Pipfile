@@ -12,7 +12,7 @@ ipython = "*"
 click = "*"
 bugsnag = "*"
 flask-wtf = "*"
-flask-security = {git = "https://github.com/mattupstate/flask-security.git", editable = true, ref = "develop"}
+flask-security = {editable = true, ref = "develop", git = "https://github.com/mattupstate/flask-security.git"}
 bcrypt = "*"
 newrelic = "*"
 gunicorn = "*"
@@ -30,4 +30,4 @@ pytest-cov = "*"
 python-dotenv = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
