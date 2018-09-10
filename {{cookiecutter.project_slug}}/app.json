@@ -1,6 +1,9 @@
 {
     "name": "Sampleplaceholder",
     "success_url": "/",
+    "scripts": {
+      "postdeploy": "flask db upgrade"
+    },
     "env": {
       "SECRET_KEY": {
         "description": "A secret key for verifying the integrity of signed cookies.",
