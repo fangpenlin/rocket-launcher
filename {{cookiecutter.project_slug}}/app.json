@@ -1,5 +1,5 @@
 {
-    "name": "Sampleplaceholder",
+    "name": "{{cookiecutter.project_name}}",
     "success_url": "/",
     "scripts": {
       "postdeploy": "flask db upgrade"
@@ -15,7 +15,7 @@
       },
       "MAIL_DEFAULT_SENDER": {
         "description": "Default mail sender address.",
-        "value": "noreply@{{cookiecutter.domain_name}}.com"
+        "value": "noreply@{{cookiecutter.domain_name}}"
       }
     },
     "addons": [
