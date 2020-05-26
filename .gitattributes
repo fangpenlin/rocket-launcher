@@ -1,0 +1,14 @@
+*.py text eol=lf
+*.cfg text eol=lf
+*.env text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.cfg text eol=lf
+*.rst text eol=lf
+*.ini text eol=lf
+*.mako text eol=lf
+README text eol=lf
+Dockerfile text eol=lf
+Pipfile text eol=lf
+Pipfile.lock text eol=lf
+Procfile text eol=lf
