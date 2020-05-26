@@ -6,8 +6,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.7.0
-      - image: circleci/postgres:10.1-alpine-ram
+      - image: circleci/python:3.8.3
+      - image: circleci/postgres:12.1-alpine-ram
 
     working_directory: ~/repo
     environment:
