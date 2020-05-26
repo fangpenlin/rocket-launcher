@@ -11,7 +11,7 @@ jobs:
 
     working_directory: ~/repo
     environment:
-      DATABASE_URL: postgresql://root@localhost/circle_test
+      DATABASE_URL: postgresql://postgres@localhost/circle_test
   
     steps:
       - run:
@@ -26,7 +26,7 @@ jobs:
       - run:
           name: Create PostgreSQL extensions
           command: |
-            psql -h localhost -U root circle_test -c "CREATE EXTENSION IF NOT EXISTS pgcrypto"
+            psql -h localhost -U postgres circle_test -c "CREATE EXTENSION IF NOT EXISTS pgcrypto"
 
       - checkout
 
