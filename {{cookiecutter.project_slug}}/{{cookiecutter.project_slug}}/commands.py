@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 """Click commands."""
-import datetime
 import os
-import tempfile
-import urllib.parse
 from glob import glob
 from subprocess import call
 
 import click
 from flask import current_app
 from flask.cli import with_appcontext
-from sqlalchemy.engine.url import make_url
 from werkzeug.exceptions import MethodNotAllowed
 from werkzeug.exceptions import NotFound
 
