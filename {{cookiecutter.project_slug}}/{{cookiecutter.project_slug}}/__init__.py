@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask.helpers import get_debug_flag
 
 from .app import create_app

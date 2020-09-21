@@ -1,9 +1,16 @@
 import pytest
 from flask_webtest import TestApp
+from pytest_factoryboy import register
 
+from . import factories
 from {{cookiecutter.project_slug}}.app import create_app
 from {{cookiecutter.project_slug}}.extensions import db as _db
 from {{cookiecutter.project_slug}}.settings import TestConfig
+
+
+register(factories.UserFactory)
+register(factories.UserFactory, "admin_user", is_admin=True)
+register(factories.UserFactory, "inactive_user", is_active=False)
 
 
 def pytest_sessionstart(session):
@@ -12,9 +19,11 @@ def pytest_sessionstart(session):
     ctx.push()
 
     with _app.app_context():
-        _db.engine.execute('''
+        _db.engine.execute(
+            """
         CREATE EXTENSION IF NOT EXISTS pgcrypto
-        ''')
+        """
+        )
 
     ctx.pop()
 
@@ -49,3 +58,8 @@ def db(app):
     # Explicitly close DB connection
     _db.session.close()
     _db.drop_all()
+
+
+@pytest.fixture
+def default_password():
+    return factories.USER_DEFAULT_PASSWORD

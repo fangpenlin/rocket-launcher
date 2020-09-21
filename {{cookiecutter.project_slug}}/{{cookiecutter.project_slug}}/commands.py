@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Click commands."""
 import os
 from glob import glob
@@ -87,8 +86,8 @@ def urls(url, order):
 
     if url:
         try:
-            rule, arguments = (
-                current_app.url_map.bind("localhost").match(url, return_rule=True)
+            rule, arguments = current_app.url_map.bind("localhost").match(
+                url, return_rule=True
             )
             rows.append((rule.rule, rule.endpoint, arguments))
             column_length = 3
@@ -115,13 +114,13 @@ def urls(url, order):
     if column_length >= 2:
         max_endpoint_length = max(len(str(r[1])) for r in rows)
         # max_endpoint_length = max(rows, key=len)
-        max_endpoint_length = (max_endpoint_length if max_endpoint_length > 8 else 8)
+        max_endpoint_length = max_endpoint_length if max_endpoint_length > 8 else 8
         str_template += "  {:" + str(max_endpoint_length) + "}"
         table_width += 2 + max_endpoint_length
 
     if column_length >= 3:
         max_arguments_length = max(len(str(r[2])) for r in rows)
-        max_arguments_length = (max_arguments_length if max_arguments_length > 9 else 9)
+        max_arguments_length = max_arguments_length if max_arguments_length > 9 else 9
         str_template += "  {:" + str(max_arguments_length) + "}"
         table_width += 2 + max_arguments_length
 

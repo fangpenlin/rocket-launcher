@@ -1,0 +1,135 @@
+{% macro render_field_label(field) %}
+  <label for="{{ field.id }}" class="control-label" {% if field.widget.input_type == 'checkbox' %}style="display: block"{% endif %}>{{ field.label.text }}
+    {%- if h.is_required_form_field(field) %}
+      <strong style="color: red">&#42;</strong>
+    {%- else -%}
+      &nbsp;
+    {%- endif %}
+  </label>
+{% endmacro %}
+
+{% macro render_field_checkbox_label(field) %}
+  <label for="{{ field.id }}" class="form-check-label">{{ field.label.text }}</label>
+{% endmacro %}
+
+{% macro render_field_errors(field) %}
+  <div class="invalid-feedback">
+    <ul class="help-block">
+    {% for e in field.errors if e is string %}
+      <li>{{ e }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+
+{% macro render_field_input(field, kwargs={}) %}
+  {% set prepend = kwargs.pop('prepend', None) %}
+  {% set append = kwargs.pop('append', None) %}
+  {% set direct_error = h.is_field_error(field.errors) %}
+  {%- if prepend or append %}
+  <div class="input-group">
+    {%- if prepend -%}
+    <div class="input-group-prepend">
+      {{ prepend }}
+    </div>
+    {%- endif -%}
+  {% endif %}
+    {% if field.widget.input_type == 'checkbox' %}
+      {% set _class = kwargs.setdefault('class', 'form-check-label') %}
+    {% elif field.widget.input_type == 'file' %}
+      {% set _class = kwargs.setdefault('class', 'form-control-file') %}
+    {% else %}
+      {% set _class = kwargs.setdefault('class', 'form-control') %}
+    {% endif %}
+    {%- if direct_error %} {% set _ = kwargs.update({'class': kwargs['class'] ~ ' is-invalid'}) %} {% endif -%}
+    {{ field(**kwargs) | safe }}
+    {%- if append -%}
+    <div class="input-group-append">
+      {{ append }}
+    </div>
+    {%- endif -%}
+    {% if direct_error %}
+      {{ render_field_errors(field) }}
+    {% elif field.description %}
+      <div class="help-block">{{ field.description | safe }}</div>
+    {% endif %}
+  {% if prepend or append %}
+  </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro render_checkbox(field, kwargs={}, show_label=True) %}
+  <div class="form-check">
+    {% set direct_error = h.is_field_error(field.errors) %}
+    {% set _class = kwargs.setdefault('class', 'form-check-input') %}
+    {%- if direct_error %} {% set _ = kwargs.update({'class': kwargs['class'] ~ ' is-invalid'}) %} {% endif -%}
+    {{ field(**kwargs) | safe }}
+    {{ render_field_checkbox_label(field) }}
+    {% if direct_error %}
+      {{ render_field_errors(field) }}
+    {% elif field.description %}
+      <div class="help-block">{{ field.description | safe }}</div>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro render_field(form, field, column_class='', kwargs={}, caller=None, show_label=True) %}
+  {% set direct_error = h.is_field_error(field.errors) %}
+  <div class="form-group {{ column_class }}">
+    {%- if show_label -%}
+      {{ render_field_label(field) }}
+    {%- endif -%}
+
+    {{ render_field_input(field, kwargs=kwargs) }}
+
+    {% if caller %}
+      {{ caller(form, field, direct_error, kwargs) }}
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro render_form_hidden_fields(form) %}
+  {% if form.hidden_tag is defined %}
+    {{ form.hidden_tag() }}
+  {% endif %}
+{% endmacro %}
+
+{% macro render_form_fields(form, form_opts=None) %}
+  {{ render_form_hidden_fields(form) }}
+
+  {% for f in form if f.widget.input_type != 'hidden' %}
+    {% if form_opts %}
+      {% set kwargs = form_opts.widget_args.get(f.short_name, {}) %}
+    {% else %}
+      {% set kwargs = {} %}
+    {% endif %}
+    {{ render_field(form, f, kwargs) }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro form_tag(form=None, action=None) %}
+  <form action="{{ action or '' }}" method="POST" role="form" enctype="multipart/form-data">
+  <fieldset>
+    {{ caller() }}
+  </fieldset>
+  </form>
+{% endmacro %}
+
+{% macro render_form_buttons(extra=None) %}
+  <hr>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10 submit-row">
+      <input type="submit" class="btn btn-primary" value="{{ 'Save' }}" />
+      {% if extra %}
+      {{ extra }}
+      {% endif %}
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro render_form(form, extra=None, form_opts=None, action=None) -%}
+  {% call form_tag(form=form, action=action) %}
+    {{ render_form_fields(form, form_opts=form_opts) }}
+    {{ render_form_buttons(extra) }}
+  {% endcall %}
+{% endmacro %}

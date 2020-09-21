@@ -20,10 +20,10 @@
     <ul class="navbar-nav mr-auto">
       {{ nav_item('Home', 'public.home') }}
       {% if current_user.is_authenticated %}
-        {{ nav_item('Logout', 'security.logout') }}
+        {{ nav_item('Logout', 'public.logout') }}
       {% else %}
-        {{ nav_item('Login', 'security.login') }}
-        {{ nav_item('Register', 'security.register') }}
+        {{ nav_item('Login', 'public.login') }}
+        {{ nav_item('Register', 'public.register') }}
       {% endif %}
     </ul>
   </div>

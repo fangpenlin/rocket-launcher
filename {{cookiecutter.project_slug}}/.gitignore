@@ -103,3 +103,4 @@ ENV/
 .vscode/
 .pytest_cache
 htmlcov
+.idea
