@@ -17,7 +17,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", "postgresql://localhost/{{cookiecutter.project_slug}}"
     )
-    SITE_NAME = '{{cookiecutter.project_name}}'
+    SITE_NAME = "{{cookiecutter.project_name}}"
 
     ADMIN_DASHBOARD_PREFIX = os.environ.get("ADMIN_DASHBOARD_PREFIX", "/__admin")
     FLASK_ADMIN_SWATCH = "cosmo"
