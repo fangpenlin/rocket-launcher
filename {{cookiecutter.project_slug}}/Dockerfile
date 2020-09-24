@@ -27,7 +27,7 @@ RUN apk add --no-cache --virtual .build-deps \
         libressl-dev \
         libxslt-dev \
         libffi-dev && \
-    pipenv install --system --deploy --dev -v && \
+    pipenv install --system --deploy --dev && \
     apk del .build-deps
 
 COPY . /app/
