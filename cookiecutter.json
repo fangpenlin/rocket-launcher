@@ -4,6 +4,8 @@
     "domain_name": "{{cookiecutter.project_slug}}.com",
     "github_username": "fangpenlin",
     "github_repo_name": "rocket-launcher-sampleapp",
+    "docker_registry": "us.gcr.io",
+    "docker_image": "my-gpc-project/{{cookiecutter.project_slug}}",
     "_copy_without_render": [
         "*.html"
     ]

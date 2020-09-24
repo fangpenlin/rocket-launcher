@@ -2,7 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
-version: 2
+version: 2.1
+orbs:
+  docker: circleci/docker@0.5.17
 jobs:
   build:
     docker:
@@ -56,3 +58,50 @@ jobs:
       - store_artifacts:
           path: htmlcov
           destination: htmlcov
+
+  publish:
+    executor: docker/docker
+    environment:
+      DOCKER_CONFIG: /home/circleci/.docker/config.json
+    steps:
+      - setup_remote_docker
+      - checkout
+      - attach_workspace:
+          at: charts
+      - run:
+          name: Login docker
+          command: |
+            echo $DOCKER_LOGIN > /tmp/.token.json
+            docker login -u _json_key --password-stdin https://{{cookiecutter.docker_registry}} < /tmp/.token.json
+      - docker/build:
+          registry: {{cookiecutter.docker_registry}}
+          image: {{cookiecutter.docker_image}}
+          dockerfile: Dockerfile
+          tag: "${CIRCLE_TAG:-$CIRCLE_SHA1}"
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          registry: {{cookiecutter.docker_registry}}
+          image: {{cookiecutter.docker_image}}
+          tag: "${CIRCLE_TAG:-$CIRCLE_SHA1}"
+      - run:
+          command: |
+            echo "Digest is: $(</tmp/digest.txt)"
+            echo "Tag is: ${CIRCLE_TAG:-$CIRCLE_SHA1}"
+
+workflows:
+  build-deploy:
+    jobs:
+      - test:
+          filters:
+            # needed for deploy build
+            # ref: https://discuss.circleci.com/t/builds-for-tags-not-triggering/17681/7
+            tags:
+              only: /^.*/
+      - publish:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^.*/
