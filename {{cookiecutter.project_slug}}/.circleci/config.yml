@@ -6,7 +6,7 @@ version: 2.1
 orbs:
   docker: circleci/docker@0.5.17
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3.8.3
       - image: circleci/postgres:12.1-alpine-ram
